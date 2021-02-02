@@ -2,8 +2,8 @@ class UsersController < ApplicationController
     def create
         user = User.create!(
             username: params[:username],
-            password_digest: params[:password],
+            password: params[:password],
         )
-        render json: {message: "Welcome #{user.username}"}
+        render json: {message: "Welcome #{user.username}", data: user}
     end
 end
