@@ -7,6 +7,18 @@ class GoalsController < ApplicationController
         render json: goals, :include => :tasks
     end
 
+    def show
+
+        goal = Goal.find_by(id: params[:id])
+
+        if goal && goal.user_id == @user.id
+            render json: goal
+        else 
+            render status: :unauthorized
+        end 
+
+    end
+
     def create
         goal = Goal.create!(
             name: params[:name],
