@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tasks, only: [:create]
   resources :goals, only: [:create, :index]
   resources :users, only: [:create]
   post "login", to: 'authentication#login'
