@@ -17,6 +17,11 @@ ActiveRecord::Schema.define(version: 2021_02_03_183813) do
 
   create_table "goals", force: :cascade do |t|
     t.string "name"
+    t.text "description"
+    t.boolean "completed"
+    t.string "rgb"
+    t.string "due_date"
+    t.string "completed_date"
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
