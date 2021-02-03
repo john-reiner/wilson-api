@@ -10,10 +10,10 @@ class AuthenticationController < ApplicationController
                 user_id: user.id,
                 username: user.username,
             }, secret_key)
-            render json: { message: "Thank you for logging in #{user.username}", data: user, token: token }
+            render json: { token: token }
         else
             render json: { message: "Unable to verifiy username or password. Please try again."}
         end
-
     end
+
 end
