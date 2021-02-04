@@ -14,8 +14,7 @@ module AuthenticateUserConcern
             @user = User.find(decoded_token["user_id"])
         else
             render status: :unauthorized
-        end 
-        
+        end
     end
-    
+
 end

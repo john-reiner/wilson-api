@@ -12,7 +12,7 @@ class GoalsController < ApplicationController
         goal = Goal.find_by(id: params[:id])
 
         if goal && goal.user_id == @user.id
-            render json: goal
+            render json: goal, :include => :tasks
         else 
             render status: :unauthorized
         end 
@@ -27,4 +27,5 @@ class GoalsController < ApplicationController
         )
         render json: goal
     end
+    
 end
