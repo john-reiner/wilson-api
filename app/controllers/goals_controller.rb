@@ -8,7 +8,6 @@ class GoalsController < ApplicationController
     end
 
     def show
-
         goal = Goal.find_by(id: params[:id])
 
         if goal && goal.user_id == @user.id
@@ -23,7 +22,8 @@ class GoalsController < ApplicationController
         goal = Goal.create!(
             name: params[:name],
             user_id: @user.id,
-            description: params[:description]
+            description: params[:description],
+            rgb: params[:rgb]
         )
         render json: goal
     end

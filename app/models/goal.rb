@@ -6,8 +6,7 @@ class Goal < ApplicationRecord
 
     after_initialize :set_defaults 
 
-    def set_defaults 
+    def set_defaults
         self.completed ||= false
-        self.rgb ||= "rgb(#{rand(1..255)},#{rand(1..255)},#{rand(1..255)})"
-    end 
+    end
 end
