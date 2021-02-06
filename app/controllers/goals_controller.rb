@@ -15,7 +15,12 @@ class GoalsController < ApplicationController
         else 
             render status: :unauthorized
         end 
+    end
 
+    def complete_goal
+        goal = Goal.find(params[:id])
+        goal.update(completed: !goal.completed)
+        render json: goal
     end
 
     def create
