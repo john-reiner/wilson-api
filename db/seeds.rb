@@ -20,7 +20,7 @@ end
         description: "Goal #{goal + 1} description.",
         user_id: rand(1..5),
         rgb: "rgb(#{rand(1..255)},#{rand(1..255)},#{rand(1..255)})",
-        due_date: "#{rand(1..12)}-#{rand(1..29)}-2022"
+        due_date: "2022-#{rand(1..12)}-#{rand(1..29)}"
     )
 end
 

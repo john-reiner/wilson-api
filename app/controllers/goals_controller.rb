@@ -28,7 +28,8 @@ class GoalsController < ApplicationController
             name: params[:name],
             user_id: @user.id,
             description: params[:description],
-            rgb: params[:rgb]
+            rgb: params[:rgb],
+            due_date: params[:due_date]
         )
         render json: goal
     end
