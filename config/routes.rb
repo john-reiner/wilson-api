@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  resources :tasks, only: [:create]
-  resources :goals, only: [:create, :index, :show]
+  resources :tasks, only: [:create, :destroy]
+  resources :goals, only: [:create, :index, :show, :destroy]
   resources :users, only: [:create, :show]
   get "/user", to: 'users#user'
   post "login", to: 'authentication#login'

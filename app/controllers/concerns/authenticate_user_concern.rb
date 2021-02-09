@@ -4,7 +4,7 @@ module AuthenticateUserConcern
     def authenticate_user
 
         authorization_header = request.headers[:authorization]
-
+        # byebug
         if authorization_header
             token = authorization_header.split(" ")[1]
             secret_key = Rails.application.secrets.secret_key_base

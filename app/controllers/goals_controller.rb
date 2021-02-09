@@ -18,8 +18,9 @@ class GoalsController < ApplicationController
     end
 
     def complete_goal
+
         goal = Goal.find(params[:id])
-        goal.update(completed: !goal.completed)
+        goal.update(completed: true, completed_date: Date.current.to_s)
         render json: goal
     end
 
@@ -31,6 +32,12 @@ class GoalsController < ApplicationController
             rgb: params[:rgb],
             due_date: params[:due_date]
         )
+        render json: goal
+    end
+
+    def destroy
+        goal = Goal.find(params[:id])
+        goal.destroy
         render json: goal
     end
     
