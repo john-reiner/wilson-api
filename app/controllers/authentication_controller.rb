@@ -5,7 +5,7 @@ class AuthenticationController < ApplicationController
         user = User.find_by(username: params[:username])
     
         if user && user.authenticate(params[:password])
-            secret_key = Rails.application.secrets.secret_key_base
+            secret_key = Rails.application.secret_key_base
             token = JWT.encode({
                 user_id: user.id,
                 username: user.username,
