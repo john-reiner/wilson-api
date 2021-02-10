@@ -35,10 +35,26 @@ class GoalsController < ApplicationController
         render json: goal
     end
 
+    def update
+        goal = Goal.find(params[:id])
+
+        if goal.update_attributes(goal_params)
+            render json: {status: 'SUCCESS', message: 'goal Updated', data:goal}, status: :ok
+        else 
+            render json: {status: 'ERROR', message: 'goal NOT Updated', data:goal.errors}, status: :unprocessable_entity
+        end 
+
+    end
+
     def destroy
         goal = Goal.find(params[:id])
         goal.destroy
         render json: goal
     end
-    
+
+    private
+
+    def goal_params
+        params.require(:goal).permit(:user_id, :name, :completed, :description, :rgb, :due_date)
+    end
 end
