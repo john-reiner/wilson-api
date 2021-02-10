@@ -7,7 +7,7 @@ module AuthenticateUserConcern
         # byebug
         if authorization_header
             token = authorization_header.split(" ")[1]
-            secret_key = Rails.application.secrets.secret_key_base
+            secret_key = Rails.application.secret_key_base
             
             decoded_token = JWT.decode(token, secret_key)[0]
 
