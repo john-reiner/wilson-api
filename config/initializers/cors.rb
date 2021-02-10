@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
     allow do
-        origins 'https://john-reiner.github.io/wilson-2.0'
+        origins '*'
 
     resource '*',
         headers: :any,
