@@ -6,6 +6,7 @@ class UsersController < ApplicationController
         user = User.create(
             username: params[:username],
             password: params[:password],
+            password_confirmation: params[:password_confirmation]
         )
         # render json: {message: "Welcome #{user.username}", data: user}, status: :created
 
