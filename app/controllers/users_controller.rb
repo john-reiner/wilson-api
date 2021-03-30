@@ -10,7 +10,7 @@ class UsersController < ApplicationController
         # render json: {message: "Welcome #{user.username}", data: user}, status: :created
 
         if user.errors.any?
-            render json: user.errors
+            render json: {errors: user.errors}
         else
             render json: user
         end 
