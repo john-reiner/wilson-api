@@ -7,8 +7,14 @@ class UsersController < ApplicationController
             username: params[:username],
             password: params[:password],
         )
-        
         render json: {message: "Welcome #{user.username}", data: user}, status: :created
+
+        if user.save 
+            render json: {status: 'SUCCESS', message: 'User Created', data:user},status: :ok
+        else 
+            render json: {status: 'ERROR', message: 'User NOT Created', data:user.errors},status: :unprocessable_entity
+        end
+
     end
 
     def user
