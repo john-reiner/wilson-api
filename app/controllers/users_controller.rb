@@ -3,17 +3,22 @@ class UsersController < ApplicationController
     before_action :authenticate_user, only: [:show, :user]
 
     def create
-        user = User.create!(
+        user = User.create(
             username: params[:username],
             password: params[:password],
         )
         # render json: {message: "Welcome #{user.username}", data: user}, status: :created
 
-        if user.save 
-            render json: {status: 'SUCCESS', message: 'User Created', data:user},status: :ok
-        else 
-            render json: {status: 'ERROR', message: 'User NOT Created', data:user.errors},status: :unprocessable_entity
-        end
+        if user.errors.any?
+            render json: {errors: user.errors}
+        else
+            render json: {user: user}
+        end 
+        # if user.errors 
+        #     render json: {status: 'SUCCESS', message: 'User Created', data:user},status: :ok
+        # else
+        #     render json: {status: 'ERROR', message: 'User NOT Created', data:user.errors},status: :unprocessable_entity
+        # end
 
     end
 
