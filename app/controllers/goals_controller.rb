@@ -35,7 +35,7 @@ class GoalsController < ApplicationController
             render json: {errors: goal.errors}
         else
             render json: goal
-        end 
+        end
     end
 
     def update

@@ -7,7 +7,11 @@ class TasksController < ApplicationController
             name: params[:name],
             goal_id: params[:goal_id]
         )
-        render json: task
+        if task.errors.any?
+            render json: {errors: task.errors}
+        else
+            render json: task
+        end
     end
 
     def complete_task
