@@ -18,21 +18,24 @@ class GoalsController < ApplicationController
     end
 
     def complete_goal
-
         goal = Goal.find(params[:id])
         goal.update(completed: true, completed_date: Date.current.to_s)
         render json: goal
     end
 
     def create
-        goal = Goal.create!(
+        goal = Goal.create(
             name: params[:name],
             user_id: @user.id,
             description: params[:description],
             rgb: params[:rgb],
             due_date: params[:due_date]
         )
-        render json: goal
+        if goal.errors.any?
+            render json: {errors: goal.errors}
+        else
+            render json: goal
+        end 
     end
 
     def update
