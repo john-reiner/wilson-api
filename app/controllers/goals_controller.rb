@@ -41,11 +41,11 @@ class GoalsController < ApplicationController
     def update
         goal = Goal.find(params[:id])
 
-        if goal.update_attributes(goal_params)
-            render json: {status: 'SUCCESS', message: 'goal Updated', data:goal}, status: :ok
-        else 
-            render json: {status: 'ERROR', message: 'goal NOT Updated', data:goal.errors}, status: :unprocessable_entity
-        end 
+        if goal.errors.any?
+            render json: {errors: goal.errors}
+        else
+            render json: goal
+        end
 
     end
 
