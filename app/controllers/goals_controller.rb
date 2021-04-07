@@ -3,9 +3,9 @@ class GoalsController < ApplicationController
     before_action :authenticate_user
 
     def index
-        goals = Goal.where(user_id: @user.id)
-        goals.order(:due_date)
-        render json: goals, :include => :tasks
+        goals = Goal.order(:due_date)
+        user_goals = goals.where(user_id: @user.id)
+        render json: user_goals, :include => :tasks
     end
 
     def show
