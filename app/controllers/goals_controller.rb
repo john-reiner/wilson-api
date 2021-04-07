@@ -4,7 +4,7 @@ class GoalsController < ApplicationController
 
     def index
         goals = Goal.where(user_id: @user.id)
-        goals.order(due_date: :asc)
+        goals.order(:due_date)
         render json: goals, :include => :tasks
     end
 
