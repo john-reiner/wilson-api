@@ -49,12 +49,6 @@ class GoalsController < ApplicationController
             render json: goal
         end
 
-        # if goal.update_attributes(goal_params)
-        #     render json: {status: 'SUCCESS', message: 'goal Updated', data:goal}, status: :ok
-        # else 
-        #     render json: {status: 'ERROR', message: 'goal NOT Updated', data:goal.errors}, status: :unprocessable_entity
-        # end
-
     end
 
     def destroy
