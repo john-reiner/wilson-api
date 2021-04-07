@@ -1,6 +1,6 @@
 class Goal < ApplicationRecord
     belongs_to :user
-    has_many :tasks, -> { order(:created_at => :desc) }
+    has_many :tasks, -> { order(:created_at => :asc) }
     validates :name, presence: true
     validates :description, presence: true
 
