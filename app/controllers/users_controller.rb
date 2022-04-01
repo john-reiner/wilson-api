@@ -15,11 +15,6 @@ class UsersController < ApplicationController
         else
             render json: user
         end 
-        # if user.errors 
-        #     render json: {status: 'SUCCESS', message: 'User Created', data:user},status: :ok
-        # else
-        #     render json: {status: 'ERROR', message: 'User NOT Created', data:user.errors},status: :unprocessable_entity
-        # end
 
     end
 
