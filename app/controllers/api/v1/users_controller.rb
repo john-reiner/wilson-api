@@ -6,19 +6,12 @@ module Api
             before_action :authenticate_user, only: [:show, :user]
         
             def create
-                user = User.create(
-                    username: params[:username],
-                    password: params[:password],
-                    password_confirmation: params[:password_confirmation]
-                )
-                # render json: {message: "Welcome #{user.username}", data: user}, status: :created
-        
+                user = User.create(user_params)
                 if user.errors.any?
                     render json: {errors: user.errors}
                 else
                     render json: user
-                end 
-        
+                end
             end
         
             def user
@@ -40,6 +33,11 @@ module Api
                 # end 
             end
         
+            private
+
+            def user_params
+                params.require(:user).permit(:username, :password, :password_confirmation)
+            end
         end
     end    
 end

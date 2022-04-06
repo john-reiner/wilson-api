@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_29_121013) do
+ActiveRecord::Schema.define(version: 2022_04_01_210049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "features", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "due_date"
+    t.boolean "public"
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_features_on_project_id"
+  end
 
   create_table "goals", force: :cascade do |t|
     t.string "name"
@@ -26,6 +37,53 @@ ActiveRecord::Schema.define(version: 2021_03_29_121013) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_goals_on_user_id"
+  end
+
+  create_table "project_list_tasks", force: :cascade do |t|
+    t.string "content"
+    t.string "due_date"
+    t.boolean "completed"
+    t.bigint "project_list_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_list_id"], name: "index_project_list_tasks_on_project_list_id"
+  end
+
+  create_table "project_lists", force: :cascade do |t|
+    t.string "title"
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_project_lists_on_project_id"
+  end
+
+  create_table "project_notes", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_project_notes_on_project_id"
+  end
+
+  create_table "project_tags", force: :cascade do |t|
+    t.string "key"
+    t.string "value"
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_project_tags_on_project_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "github_url"
+    t.boolean "public"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "scores", force: :cascade do |t|
@@ -53,6 +111,12 @@ ActiveRecord::Schema.define(version: 2021_03_29_121013) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "features", "projects"
   add_foreign_key "goals", "users"
+  add_foreign_key "project_list_tasks", "project_lists"
+  add_foreign_key "project_lists", "projects"
+  add_foreign_key "project_notes", "projects"
+  add_foreign_key "project_tags", "projects"
+  add_foreign_key "projects", "users"
   add_foreign_key "tasks", "goals"
 end
