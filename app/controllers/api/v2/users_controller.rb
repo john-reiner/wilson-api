@@ -1,49 +1,42 @@
-class Api::V2::UsersController < ApplicationController
-    before_action :find_user
-    before_action :authenticate_user, only: [:show, :user]
+module Api
+    module V2
+        
+        class UsersController < ApplicationController
+        
+            before_action :authenticate_user, only: [:show, :user]
+        
+            def create
+                user = User.create(user_params)
+                if user.errors.any?
+                    render json: {errors: user.errors}
+                else
+                    login_user
+                end
+            end
+        
+            def user
 
-    def create
-        user = User.create(
-            username: params[:username],
-            password: params[:password],
-            password_confirmation: params[:password_confirmation]
-        )
-        # render json: {message: "Welcome #{user.username}", data: user}, status: :created
+            end
 
-        if user.errors.any?
-            render json: {errors: user.errors}
-        else
-            render json: user
-        end 
+            def email
+                user = User.exists?(email: user_params[:email])
+                if user
+                    render json: {status: :unauthorized, message: "Email already exists"}
+                else
+                    render json: {status: :ok, message: user_params[:email]}
+                end
 
-    end
+            end
+        
+            def show
+                render json: @user
+            end
+        
+            private
 
-    def user
-
-        # if @user 
-        #     render json: @user
-        # else 
-        #     render status: :unauthorized
-        # end
-    end 
-
-    def show
-        # user = User.find(@user.id)
-        render json: @user
-        # user = User.find(params[:id])
-        # if user && user.id == @user.id
-        #     render json: {username: user.username}
-        # else 
-        #     render status: :unauthorized
-        # end 
-    end
-
-    private
-
-    def find_user
-
-        @user = User.find_by(id: params[:id])
-    end
+            def user_params
+                params.require(:user).permit(:username, :password, :password_confirmation, :email, :first_name, :last_name)
+            end
+        end
+    end    
 end
-
-

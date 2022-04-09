@@ -8,10 +8,13 @@ module AuthenticateUserConcern
         if authorization_header
             token = authorization_header.split(" ")[1]
             secret_key = Rails.application.secret_key_base
-            
-            decoded_token = JWT.decode(token, secret_key)[0]
-
-            @user = User.find(decoded_token["user_id"])
+            begin
+                decoded_token = JWT.decode(token, secret_key)[0]
+            rescue => exception
+                render json: {status: :unauthorized, error: "JWT", message: exception}
+            else
+                @user = User.find(decoded_token["user_id"])
+            end
         else
             render status: :unauthorized
         end

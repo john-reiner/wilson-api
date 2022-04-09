@@ -10,16 +10,12 @@ module Api
                 if user.errors.any?
                     render json: {errors: user.errors}
                 else
-                    render json: user
+                    login_user
                 end
             end
         
             def user
-                if @user 
-                    render json: @user
-                else 
-                    render status: :unauthorized
-                end
+
             end 
         
             def show
