@@ -1,11 +1,10 @@
 class Api::V2::ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :update, :destroy]
-  before_action :authenticate_user, only: [:create, :user]
+  before_action :authenticate_user, only: [:index, :create]
   # GET /projects
   def index
+    # byebug
     @projects = @user.projects.all
-
-    render json: @projects
   end
 
   # GET /projects/1
@@ -15,12 +14,15 @@ class Api::V2::ProjectsController < ApplicationController
 
   # POST /projects
   def create
+    
     @project = Project.new(project_params)
-
+    @project.user = @user
+    
     if @project.save
-      render json: @project, status: :created, location: @project
+      # byebug
+      render json: {status: :ok, message: @project}
     else
-      render json: @project.errors, status: :unprocessable_entity
+      render json: {errors: @project.errors, status: :unprocessable_entity}
     end
   end
 
