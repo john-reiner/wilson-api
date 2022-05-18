@@ -20,7 +20,7 @@ module Api
         
             def show
                 # user = User.find(@user.id)
-                render json: @user
+                # render json: @user
                 # user = User.find(params[:id])
                 # if user && user.id == @user.id
                 #     render json: {username: user.username}

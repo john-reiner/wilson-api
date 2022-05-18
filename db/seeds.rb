@@ -8,15 +8,15 @@
     )
 end
 
-# 15.times do |project|
-#     Project.create(
-#         title: "testprojecttitle#{project + 1}",
-#         description: "testprojectdescription#{project + 1}",
-#         github_url: "www.github.com/project#{project + 1}",
-#         public: false,
-#         user_id: 1
-#     )
-# end
+5.times do |project|
+    Project.create(
+        title: "testprojecttitle#{project + 1}",
+        description: "test project description #{project + 1}",
+        github_url: "www.github.com/project#{project + 1}",
+        public: true,
+        user_id: 1
+    )
+end
 
 # User.create(
 #     username: "testuser",

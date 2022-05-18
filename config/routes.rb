@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     end
     namespace :v2 do 
       resources :users do
+        get "/user", to: 'users#user'
         resources :projects do 
           resources :features
           resources :project_notes

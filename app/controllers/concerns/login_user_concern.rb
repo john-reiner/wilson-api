@@ -11,9 +11,9 @@ module LoginUserConcern
                 user_id: user.id,
                 username: user.username,
             }, secret_key)
-            render json: {status: :ok, token: token}
+            render json: {status: :ok, message: token}
         else
-            render json: {status: :unauthorized, message: "Unable to verifiy username or password. Please try again."}
+            render json: {status: :unauthorized, errors: "Unable to verifiy username or password. Please try again."}
         end
     end
 
