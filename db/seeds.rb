@@ -31,23 +31,7 @@ end
 25.times do |note|
     ProjectNote.create(
         title: "Test Note #{note + 1}",
+        content: "Test Note description for Note #{note + 1}"
         project_id: rand(1..5)
     )
 end
-
-# User.create(
-#     username: "testuser",
-#     password: "password",
-#     password_confirmation: "password"
-# )
-
-# 5.times do |goal|
-#     Goal.create(
-#         name: "testgoal#{goal + 1}",
-#         description: "descritpion for testgoal#{goal + 1}",
-#         completed: false,
-#         rgb: "red",
-#         user_id: 1
-#     )
-
-# end
