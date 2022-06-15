@@ -9,7 +9,7 @@ class Api::V2::ProjectsController < ApplicationController
 
   # GET /projects/1
   def show
-    render json: {status: :ok, message: @project}
+    # render json: {status: :ok, message: @project}
   end
 
   # POST /projects
