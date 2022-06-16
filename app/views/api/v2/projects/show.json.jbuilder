@@ -13,5 +13,6 @@ end
 json.notes @project.project_notes do |note|
     json.id note.id
     json.title note.title
-    json.description note.description
+    json.content note.content
+    json.created note.created_at
 end
