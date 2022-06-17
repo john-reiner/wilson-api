@@ -1,5 +1,4 @@
 if @user
-
     json.status :ok
     json.projects @projects.each do |project|
         json.id project.id

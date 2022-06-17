@@ -8,8 +8,7 @@ module LoginUserConcern
         if user && user.authenticate(params[:user][:password])
             secret_key = Rails.application.secret_key_base
             token = JWT.encode({
-                user_id: user.id,
-                username: user.username,
+                user_id: user.id
             }, secret_key)
             render json: {status: :ok, message: token}
         else

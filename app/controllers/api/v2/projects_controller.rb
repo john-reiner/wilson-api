@@ -3,7 +3,7 @@ class Api::V2::ProjectsController < ApplicationController
   before_action :authenticate_user, only: [:index, :create]
   # GET /projects
   def index
-    # byebug
+  
     @projects = @user.projects.all
   end
 

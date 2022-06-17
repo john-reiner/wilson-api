@@ -16,9 +16,9 @@ class Api::V2::FeaturesController < ApplicationController
   # POST /features
   def create
     @feature = Feature.new(feature_params)
-
+    @feature.project_id = params[:project_id]
     if @feature.save
-      render json: @feature, status: :created, location: @feature
+      render json: {message: @feature, status: :created}
     else
       render json: @feature.errors, status: :unprocessable_entity
     end

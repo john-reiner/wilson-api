@@ -18,7 +18,6 @@ class Api::V2::ProjectNotesController < ApplicationController
     @project_note = ProjectNote.new(project_note_params)
     @project_note.project_id = params[:project_id]
     if @project_note.save
-      # byebug
       render json: {message: @project_note, status: :created}
     else
       render json: @project_note.errors, status: :unprocessable_entity

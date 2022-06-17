@@ -2,9 +2,7 @@ module AuthenticateUserConcern
     extend ActiveSupport::Concern
 
     def authenticate_user
-
         authorization_header = request.headers[:authorization]
-        # byebug
         if authorization_header
             token = authorization_header.split(" ")[1]
             secret_key = Rails.application.secret_key_base
@@ -13,7 +11,6 @@ module AuthenticateUserConcern
             rescue => exception
                 render json: {status: :unauthorized, error: "JWT", message: exception}
             else
-                # byebug
                 @user = User.find(decoded_token["user_id"])
             end
         else

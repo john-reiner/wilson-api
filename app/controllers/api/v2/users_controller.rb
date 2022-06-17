@@ -15,10 +15,10 @@ module Api
             end
         
             def user
+                render json: {message: @user.id, status: :ok}
             end
 
             def email
-                
                 user = User.exists?(email: user_params[:email])
                 if user
                     render json: {status: :unauthorized, errors: "Email already exists"}
