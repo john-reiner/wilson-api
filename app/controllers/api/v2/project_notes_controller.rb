@@ -26,7 +26,7 @@ class Api::V2::ProjectNotesController < ApplicationController
   # PATCH/PUT /project_notes/1
   def update
     if @project_note.update(project_note_params)
-      render json: @project_note
+      render json: {message: @project_note, status: :ok}
     else
       render json: @project_note.errors, status: :unprocessable_entity
     end
@@ -35,6 +35,7 @@ class Api::V2::ProjectNotesController < ApplicationController
   # DELETE /project_notes/1
   def destroy
     @project_note.destroy
+    render json: {message: @project_note, status: :ok}
   end
 
   private

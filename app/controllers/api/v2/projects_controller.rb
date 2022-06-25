@@ -3,8 +3,7 @@ class Api::V2::ProjectsController < ApplicationController
   before_action :authenticate_user, only: [:index, :create]
   # GET /projects
   def index
-  
-    @projects = @user.projects.all
+    @projects = @user.projects
   end
 
   # GET /projects/1
@@ -38,6 +37,7 @@ class Api::V2::ProjectsController < ApplicationController
   # DELETE /projects/1
   def destroy
     @project.destroy
+    render json: {message: @project, status: :ok}
   end
 
   private
