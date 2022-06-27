@@ -16,9 +16,9 @@ class Api::V2::ProjectListsController < ApplicationController
   # POST /project_lists
   def create
     @project_list = ProjectList.new(project_list_params)
-
+    @project_list.project_id = params[:project_id]
     if @project_list.save
-      render json: @project_list, status: :created, location: @project_list
+      render json: {message: @project_list, status: :created}
     else
       render json: @project_list.errors, status: :unprocessable_entity
     end
