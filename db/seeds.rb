@@ -1,12 +1,12 @@
-# 1.times do |user|
-#     User.create(
-#         username: "testuser#{user + 1}",
-#         password: "password#{user + 1}",
-#         first_name: "First#{user + 1}",
-#         last_name: "Last#{user + 1}",
-#         email: "testemail#{user + 1}@test.com"
-#     )
-# end
+1.times do |user|
+    User.create(
+        username: "testuser#{user + 1}",
+        password: "password#{user + 1}",
+        first_name: "First#{user + 1}",
+        last_name: "Last#{user + 1}",
+        email: "test#{user + 1}@test.com"
+    )
+end
 
 5.times do |project|
     Project.create(

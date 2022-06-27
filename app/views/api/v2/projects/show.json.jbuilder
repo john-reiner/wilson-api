@@ -16,3 +16,7 @@ json.notes @project.project_notes do |note|
     json.content note.content
     json.created note.created_at
 end
+json.lists @project.project_list do |list|
+    json.id list.id
+    json.title list.title
+end
