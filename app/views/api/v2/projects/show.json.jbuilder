@@ -19,4 +19,9 @@ end
 json.lists @project.project_list do |list|
     json.id list.id
     json.title list.title
+    json.tasks list.project_list_tasks do |task|
+        json.id task.id
+        json.content task.content
+        json.completed task.completed
+    end
 end

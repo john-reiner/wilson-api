@@ -1,6 +1,7 @@
 class Api::V2::ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :update, :destroy]
+  before_action :set_project, only: [:show, :update, :destroy, :create_todo_default_list]
   before_action :authenticate_user, only: [:index, :create]
+
   # GET /projects
   def index
     @projects = @user.projects
@@ -18,7 +19,9 @@ class Api::V2::ProjectsController < ApplicationController
     @project.user = @user
     
     if @project.save
-      # byebug
+      @project.project_list.create(
+        title: "Project - #{@project.title}: To Do's"
+      )
       render json: {status: :ok, message: @project}
     else
       render json: {errors: @project.errors, status: :unprocessable_entity}
@@ -40,8 +43,10 @@ class Api::V2::ProjectsController < ApplicationController
     render json: {message: @project, status: :ok}
   end
 
+
   private
     # Use callbacks to share common setup or constraints between actions.
+
     def set_project
       @project = Project.find(params[:id])
     end

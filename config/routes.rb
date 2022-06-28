@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  
   post "/login", to: 'authentication#login'
   namespace :api do 
     namespace :v1 do 
@@ -11,18 +10,21 @@ Rails.application.routes.draw do
       put "complete-goal/:id", to: 'goals#complete_goal'
     end
     namespace :v2 do 
-      resources :users do
-        get "/user", to: 'users#user'
-        resources :projects do 
-          resources :features
-          resources :project_notes
-          resources :project_lists do
-            resources :project_list_tasks
-          end
-          resources :project_tags
+      resources :users
+      get '/user', to: 'users#user'
+      resources :tasks
+      resources :projects do
+        resources :notes, module: :projects
+        resources :lists, module: :projects do
+          resources :tasks
         end
       end
-      post "/email", to: "users#email"
+      resources :features do
+        resources :notes, module: :features
+        resources :lists, module: :features do 
+          resources :tasks
+        end
+      end
     end    
   end
 end

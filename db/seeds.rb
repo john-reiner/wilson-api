@@ -27,13 +27,3 @@ end
         project_id: rand(1..5)
     )
 end
-
-
-
-# 25.times do |note|
-#     ProjectNote.create(
-#         title: "Test Note #{note + 1}",
-#         content: "Test Note description for Note #{note + 1}",
-#         project_id: rand(1..5)
-#     )
-# end
