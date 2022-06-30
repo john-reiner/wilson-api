@@ -15,7 +15,9 @@ Rails.application.routes.draw do
       get '/user', to: 'users#user'
       resources :projects do
         resources :notes, module: :projects
-        resources :lists, module: :projects 
+        resources :lists, module: :projects do 
+          resources :tasks
+        end
         resources :features do
           resources :notes, module: :features
           resources :lists, module: :features
