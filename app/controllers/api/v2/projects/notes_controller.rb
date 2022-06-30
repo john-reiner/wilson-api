@@ -1,4 +1,5 @@
 class Api::V2::Projects::NotesController < Api::V2::NotesController
+    
     before_action :set_notable
 
     private

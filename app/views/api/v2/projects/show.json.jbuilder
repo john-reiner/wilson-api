@@ -10,16 +10,15 @@ json.features @project.features.each do |feature|
     json.due_date feature.due_date
     json.public feature.public
 end
-json.notes @project.project_notes do |note|
+json.notes @project.notes do |note|
     json.id note.id
-    json.title note.title
     json.content note.content
     json.created note.created_at
 end
-json.lists @project.project_list do |list|
+json.lists @project.lists do |list|
     json.id list.id
     json.title list.title
-    json.tasks list.project_list_tasks do |task|
+    json.tasks list.tasks do |task|
         json.id task.id
         json.content task.content
         json.completed task.completed

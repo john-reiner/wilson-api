@@ -19,8 +19,10 @@ class Api::V2::ProjectsController < ApplicationController
     @project.user = @user
     
     if @project.save
-      @project.project_list.create(
-        title: "Project - #{@project.title}: To Do's"
+      # byebug
+      @project.lists.create(
+        title: "Project - #{@project.title}: To Do's",
+        user: @user
       )
       render json: {status: :ok, message: @project}
     else

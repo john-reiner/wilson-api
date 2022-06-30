@@ -1,13 +1,14 @@
-class Api::V2::Features::TasksController < ApplicationController
+class Api::V2::TasksController < ApplicationController
 before_action :set_task, only: [:show, :update, :destroy]
-before_action :set_list, only: [:create]
+before_action :set_list, only: [:create, :index]
 before_action :authenticate_user, only: [:index, :create]
 
 # GET /tasks
 def index
-  @tasks = Task.all
+  # byebug
+  @tasks = @list.tasks
 
-  render json: @tasks
+  render json: {tasks: @tasks, status: :ok}
 end
 
 # GET /tasks/1
@@ -49,11 +50,12 @@ private
     end
 
     def set_list
+      # byebug
       @list = List.find(params[:list_id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def task_params
-        params.require(:task).permit(:content, :completed, :list_id, :user_id)
+        params.require(:task).permit(:content, :completed, :list_id)
     end
 end

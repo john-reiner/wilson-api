@@ -10,19 +10,15 @@ Rails.application.routes.draw do
       put "complete-goal/:id", to: 'goals#complete_goal'
     end
     namespace :v2 do 
+
       resources :users
       get '/user', to: 'users#user'
-      resources :tasks
       resources :projects do
         resources :notes, module: :projects
-        resources :lists, module: :projects do
-          resources :tasks
-        end
-      end
-      resources :features do
-        resources :notes, module: :features
-        resources :lists, module: :features do 
-          resources :tasks
+        resources :lists, module: :projects 
+        resources :features do
+          resources :notes, module: :features
+          resources :lists, module: :features
         end
       end
     end    

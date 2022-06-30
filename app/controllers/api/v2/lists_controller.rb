@@ -5,16 +5,17 @@ class Api::V2::ListsController < ApplicationController
     # GET /lists
     def index
         # byebug
-        @lists = @listable.lists
+        # @lists = @listable.lists
     end
 
     # GET /lists/1
     def show
-        render json: {status: :ok, message: @list}
+        render json: {status: :ok, list: @list, tasks: @list.tasks}
     end
 
     # POST /lists
     def create
+        # byebug
         @list = @listable.lists.new list_params
         @list.user = @user
         if @list.save

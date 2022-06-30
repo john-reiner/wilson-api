@@ -11,6 +11,7 @@ module AuthenticateUserConcern
             rescue => exception
                 render json: {status: :unauthorized, error: "JWT", message: exception}
             else
+                # byebug
                 @user = User.find(decoded_token["user_id"])
             end
         else

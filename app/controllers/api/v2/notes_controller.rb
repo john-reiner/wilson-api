@@ -16,9 +16,9 @@ class Api::V2::NotesController < ApplicationController
     # POST /notes
     def create
         @note = @notable.notes.new note_params
-        # @note.user = @user
+        @note.user = @user
         if @note.save
-            render json: {status: :ok, message: @note}
+            render json: {status: :created, message: @note}
         else
             render json: {errors: @note.errors, status: :unprocessable_entity}
         end
@@ -26,17 +26,18 @@ class Api::V2::NotesController < ApplicationController
 
     # PATCH/PUT /notes/1
     def update
-    if @note.update(note_params)
-        render json: @note
-    else
-        render json: @note.errors, status: :unprocessable_entity
-    end
+    
+        if @note.update(note_params)
+            render json: {note: @note, status: :ok}
+        else
+            render json: @note.errors, status: :unprocessable_entity
+        end
     end
 
     # DELETE /notes/1
     def destroy
-    @note.destroy
-    render json: {message: @note, status: :ok}
+        @note.destroy
+        render json: {message: @note, status: :ok}
     end
 
 
