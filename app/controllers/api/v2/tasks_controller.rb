@@ -1,6 +1,5 @@
 class Api::V2::TasksController < ApplicationController
 before_action :set_task, only: [:show, :update, :destroy]
-before_action :set_list, only: [:create, :index]
 before_action :authenticate_user, only: [:index, :create]
 
 # GET /tasks
@@ -20,7 +19,6 @@ end
 def create
   @task = Task.new(task_params)
   @task.user = @user
-  @task.list = @list
   @task.completed = false
   if @task.save
     render json: {message: @task, status: :created}
@@ -31,6 +29,7 @@ end
 
 # PATCH/PUT /tasks/1
 def update
+  # byebug
     if @task.update(task_params)
         render json: @task
     else
@@ -41,17 +40,13 @@ end
 # DELETE /tasks/1
 def destroy
     @task.destroy
+    render json: {status: :ok}
 end
 
 private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
         @task = Task.find(params[:id])
-    end
-
-    def set_list
-      # byebug
-      @list = List.find(params[:list_id])
     end
 
     # Only allow a trusted parameter "white list" through.

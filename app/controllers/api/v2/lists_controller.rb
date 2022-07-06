@@ -4,7 +4,6 @@ class Api::V2::ListsController < ApplicationController
 
     # GET /lists
     def index
-        # byebug
         @lists = @listable.lists
         # render json: {status: :ok, lists: @lists}
     end
@@ -16,11 +15,10 @@ class Api::V2::ListsController < ApplicationController
 
     # POST /lists
     def create
-        # byebug
         @list = @listable.lists.new list_params
         @list.user = @user
         if @list.save
-            byebug
+
             render json: {status: :created, message: @list}
         else
             render json: {errors: @list.errors, status: :unprocessable_entity}

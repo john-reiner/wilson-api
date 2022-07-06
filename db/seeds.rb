@@ -1,29 +1,62 @@
-# 1.times do |user|
-#     User.create(
-#         username: "testuser#{user + 1}",
-#         password: "password#{user + 1}",
-#         first_name: "First#{user + 1}",
-#         last_name: "Last#{user + 1}",
-#         email: "test#{user + 1}@test.com"
-#     )
-# end
+1.times do |user|
+    User.create(
+        username: "someuser",
+        password: "asdfasdf",
+        first_name: "Test",
+        last_name: "User",
+        email: "asdf@asdf.com"
+    )
+end
 
-# 5.times do |project|
-#     Project.create(
-#         title: "Test Project #{project + 1}",
-#         description: "test project description #{project + 1}",
-#         github_url: "www.github.com/project#{project + 1}",
-#         public: true,
-#         user_id: 1
-#     )
-# end
+5.times do |project|
+    Project.create(
+        title: Faker::DcComics.title,
+        description: Faker::ChuckNorris.fact,
+        github_url: "www.github.com/project#{Faker::Games::Pokemon.name}",
+        public: Faker::Boolean.boolean,
+        user_id: 1
+    )
+end
 
-# 25.times do |feature|
-#     Feature.create(
-#         title: "Test Feature #{feature + 1}",
-#         description: "Test Feature Description #{feature + 1}",
-#         due_date: "02/03/2023",
-#         public: true,
-#         project_id: rand(1..5)
-#     )
-# end
+25.times do |feature|
+    Feature.create(
+        title: Faker::TvShows::Simpsons.character,
+        description: Faker::TvShows::SouthPark.quote,
+        due_date: "02/#{1..28}/2023",
+        public: Faker::Boolean.boolean,
+        project_id: rand(1..5)
+    )
+end
+
+50.times do 
+    Note.create(
+        notable: Project.find_by(id: rand(1..5)),
+        content: Faker::TvShows::FamilyGuy.quote,
+        user_id: 1
+    )
+end
+
+15.times do |list|
+    List.create(
+        listable: Project.find_by(id: rand(1..5)),
+        title: Faker::Movies::Departed.quote,
+        user_id: 1
+    )
+end
+
+75.times do
+    List.create(
+        listable: Feature.find_by(id: rand(1..25)),
+        title: Faker::Movies::Lebowski.quote,
+        user_id: 1
+    )
+end
+
+375.times do 
+    Task.create(
+        content: Faker::Games::SuperSmashBros.fighter,
+        completed: Faker::Boolean.boolean,
+        list_id: rand(1..75),
+        user_id: 1
+    )
+end
