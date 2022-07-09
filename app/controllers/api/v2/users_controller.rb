@@ -15,6 +15,7 @@ module Api
             end
         
             def user
+                
                 # render json: {message: @user.id, status: :ok}
             end
 

@@ -36,6 +36,14 @@ end
     )
 end
 
+50.times do 
+    Note.create(
+        notable: Feature.find_by(id: rand(1..25)),
+        content: Faker::TvShows::FamilyGuy.quote,
+        user_id: 1
+    )
+end
+
 15.times do |list|
     List.create(
         listable: Project.find_by(id: rand(1..5)),
@@ -56,7 +64,7 @@ end
     Task.create(
         content: Faker::Games::SuperSmashBros.fighter,
         completed: Faker::Boolean.boolean,
-        list_id: rand(1..75),
+        list_id: rand(1..90),
         user_id: 1
     )
 end

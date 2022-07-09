@@ -17,10 +17,10 @@ Rails.application.routes.draw do
       resources :projects do
         resources :notes, module: :projects
         resources :lists, module: :projects
-        resources :features do
-          resources :notes, module: :features
-          resources :lists, module: :features
-        end
+      end
+      resources :features do
+        resources :notes, module: :features
+        resources :lists, module: :features
       end
     end    
   end

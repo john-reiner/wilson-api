@@ -24,7 +24,7 @@ class Api::V2::ProjectsController < ApplicationController
         title: "Project - #{@project.title}: To Do's",
         user: @user
       )
-      render json: {status: :ok, message: @project}
+      render json: {status: :ok, project: @project}
     else
       render json: {errors: @project.errors, status: :unprocessable_entity}
     end
