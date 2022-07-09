@@ -27,11 +27,12 @@ class Api::V2::ListsController < ApplicationController
 
     # PATCH/PUT /lists/1
     def update
-    if @list.update(list_params)
-        render json: @list
-    else
-        render json: @list.errors, status: :unprocessable_entity
-    end
+        # byebug
+        if @list.update(list_params)
+            render json: {list: @list, status: :updated}
+        else
+            render json: @list.errors, status: :unprocessable_entity
+        end
     end
 
     # DELETE /lists/1
@@ -45,7 +46,8 @@ class Api::V2::ListsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
 
     def set_list
-        @list = list.find(params[:id])
+        # byebug
+        @list = List.find(params[:id])
     end
 
     def set_user
