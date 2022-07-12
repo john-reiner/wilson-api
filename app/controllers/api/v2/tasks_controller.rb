@@ -12,7 +12,7 @@ end
 
 # GET /tasks/1
 def show
-  render json: @task
+  render json: {task: @task, status: :ok}
 end
 
 # POST /tasks
@@ -21,7 +21,7 @@ def create
   @task.user = @user
   @task.completed = false
   if @task.save
-    render json: {message: @task, status: :created}
+    render json: {task: @task, status: :created}
   else
     render json: @task.errors, status: :unprocessable_entity
   end
@@ -31,7 +31,7 @@ end
 def update
   # byebug
     if @task.update(task_params)
-        render json: @task
+        render json: {task: @task, status: :ok}
     else
         render json: @task.errors, status: :unprocessable_entity
     end
@@ -51,6 +51,6 @@ private
 
     # Only allow a trusted parameter "white list" through.
     def task_params
-        params.require(:task).permit(:content, :completed, :list_id)
+        params.require(:task).permit(:content, :completed, :list_id, :description)
     end
 end

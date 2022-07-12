@@ -59,6 +59,6 @@ class Api::V2::ProjectsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def project_params
-      params.require(:project).permit(:title, :description, :github_url, :public)
+      params.require(:project).permit(:title, :description, :github_url, :public, :image)
     end
 end

@@ -1,11 +1,11 @@
 class Api::V2::FeaturesController < ApplicationController
   before_action :set_feature, only: [:show, :update, :destroy]
+  before_action :authenticate_user, only: [:index, :create]
 
   # GET /features
   def index
-    @features = Feature.all
-
-    render json: @features
+    @features = @user.features
+    render json: {status: :ok, features: @features}
   end
 
   # GET /features/1
@@ -15,8 +15,8 @@ class Api::V2::FeaturesController < ApplicationController
 
   # POST /features
   def create
+    # byebug
     @feature = Feature.new(feature_params)
-    @feature.project_id = params[:project_id]
     if @feature.save
       render json: {message: @feature, status: :created}
     else
@@ -27,7 +27,7 @@ class Api::V2::FeaturesController < ApplicationController
   # PATCH/PUT /features/1
   def update
     if @feature.update(feature_params)
-      render json: @feature
+      render json: {status: :ok}
     else
       render json: @feature.errors, status: :unprocessable_entity
     end
@@ -36,6 +36,7 @@ class Api::V2::FeaturesController < ApplicationController
   # DELETE /features/1
   def destroy
     @feature.destroy
+    render json: {status: :ok}
   end
 
   private

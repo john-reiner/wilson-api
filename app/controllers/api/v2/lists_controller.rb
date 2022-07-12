@@ -37,8 +37,8 @@ class Api::V2::ListsController < ApplicationController
 
     # DELETE /lists/1
     def destroy
-    @list.destroy
-    render json: {message: @list, status: :ok}
+        @list.destroy
+        render json: {message: @list, status: :ok}
     end
 
 
