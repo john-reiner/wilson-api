@@ -1,16 +1,17 @@
 class Api::V2::ListsController < ApplicationController
     before_action :set_list, only: [:show, :update, :destroy]
     before_action :authenticate_user, only: [:index, :create]
+    # before_action :set_status, only: [:index]
 
     # GET /lists
     def index
         @lists = @listable.lists
-        # render json: {status: :ok, lists: @lists}
+        @pending = @lists.where(status: :pending)
     end
 
     # GET /lists/1
     def show
-        render json: {status: :ok, list: @list, tasks: @list.tasks}
+        render json: {status: :ok, list: @list, tasks: @list.tasks }
     end
 
     # POST /lists
@@ -18,7 +19,6 @@ class Api::V2::ListsController < ApplicationController
         @list = @listable.lists.new list_params
         @list.user = @user
         if @list.save
-
             render json: {status: :created, message: @list}
         else
             render json: {errors: @list.errors, status: :unprocessable_entity}
@@ -27,7 +27,6 @@ class Api::V2::ListsController < ApplicationController
 
     # PATCH/PUT /lists/1
     def update
-        # byebug
         if @list.update(list_params)
             render json: {list: @list, status: :updated}
         else
@@ -56,6 +55,6 @@ class Api::V2::ListsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def list_params
-        params.require(:list).permit(:title)
+        params.require(:list).permit(:title, :complete, :status)
     end
 end

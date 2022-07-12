@@ -2,6 +2,7 @@ class Api::V2::TasksController < ApplicationController
 before_action :set_task, only: [:show, :update, :destroy]
 before_action :authenticate_user, only: [:index, :create]
 
+
 # GET /tasks
 def index
   # byebug
@@ -29,13 +30,16 @@ end
 
 # PATCH/PUT /tasks/1
 def update
-  # byebug
+
     if @task.update(task_params)
-        render json: {task: @task, status: :ok}
+      @list = @task.list
+      set_status
+      render json: {task: @task, status: :ok, list_status: @list.status}
     else
-        render json: @task.errors, status: :unprocessable_entity
+      render json: @task.errors, status: :unprocessable_entity
     end
 end
+
 
 # DELETE /tasks/1
 def destroy
