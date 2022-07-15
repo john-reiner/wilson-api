@@ -1,4 +1,4 @@
-class Api::V2::Projects::TasksController < Api::V2::TasksController
+class Api::V2::TasksController < ApplicationController
   before_action :set_task, only: [:show, :update, :destroy]
   before_action :set_list, only: [:index, :create]
   before_action :authenticate_user, only: [:index, :create]

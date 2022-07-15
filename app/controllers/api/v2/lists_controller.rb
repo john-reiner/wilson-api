@@ -15,6 +15,7 @@ class Api::V2::ListsController < ApplicationController
 
     # GET /lists/1
     def show
+        set_status
         render json: {status: :ok, list: @list, tasks: @list.tasks }
     end
 
@@ -22,6 +23,7 @@ class Api::V2::ListsController < ApplicationController
     def create
         @list = @listable.lists.new list_params
         @list.user = @user
+        @list.pending!
         if @list.save
             render json: {status: :created, list: @list}
         else
@@ -32,7 +34,7 @@ class Api::V2::ListsController < ApplicationController
     # PATCH/PUT /lists/1
     def update
         if @list.update(list_params)
-            render json: {list: @list, status: :updated}
+            render json: {list: @list, tasks: @list.tasks, status: :updated}
         else
             render json: @list.errors, status: :unprocessable_entity
         end

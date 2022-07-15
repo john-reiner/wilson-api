@@ -3,6 +3,9 @@ module SetStatusConcern
     def set_status
         # byebug
         if !@list.completed?
+            if @list.tasks.count == 0 
+                return @list.pending!
+            end
             if @list.tasks.all? { |task| task.completed }
                 return @list.ready!
             end
@@ -10,10 +13,6 @@ module SetStatusConcern
                 return @list.pending! 
             end
             return @list.working!
-        end
-
-        if @list.ready?
-            byebug
         end
     end
 end
