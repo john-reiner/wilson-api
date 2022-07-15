@@ -6,7 +6,11 @@ class Api::V2::ListsController < ApplicationController
     # GET /lists
     def index
         @lists = @listable.lists
+        @incomplete = @lists.where.not(status: :completed)
+        @completed = @lists.where(status: :completed)
         @pending = @lists.where(status: :pending)
+        @working = @lists.where(status: :working)
+        @ready = @lists.where(status: :ready)
     end
 
     # GET /lists/1
@@ -19,7 +23,7 @@ class Api::V2::ListsController < ApplicationController
         @list = @listable.lists.new list_params
         @list.user = @user
         if @list.save
-            render json: {status: :created, message: @list}
+            render json: {status: :created, list: @list}
         else
             render json: {errors: @list.errors, status: :unprocessable_entity}
         end
