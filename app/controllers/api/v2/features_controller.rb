@@ -5,7 +5,7 @@ class Api::V2::FeaturesController < ApplicationController
   # GET /features
   def index
     @features = @user.features
-    render json: {status: :ok, features: @features}
+    render json: {status: :ok, high: @features.where(priority: :high)}
   end
 
   # GET /features/1
@@ -47,6 +47,6 @@ class Api::V2::FeaturesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def feature_params
-      params.require(:feature).permit(:title, :description, :due_date, :public, :project_id)
+      params.require(:feature).permit(:title, :description, :due_date, :public, :project_id, :status, :priority)
     end
 end

@@ -4,13 +4,30 @@ json.description @project.description
 json.github_url @project.github_url
 json.public @project.public
 json.image @project.image
-json.features @project.features.each do |feature|
-    json.id feature.id
-    json.title feature.title
-    json.description feature.description
-    json.due_date feature.due_date
-    json.public feature.public
+json.features do 
+    json.low @low.each do |feature|
+        json.id feature.id
+        json.title feature.title
+        json.description feature.description
+        json.due_date feature.due_date
+        json.status feature.status
+    end
+    json.medium @medium.each do |feature|
+        json.id feature.id
+        json.title feature.title
+        json.description feature.description
+        json.due_date feature.due_date
+        json.status feature.status
+    end   
+    json.high @high.each do |feature|
+        json.id feature.id
+        json.title feature.title
+        json.description feature.description
+        json.due_date feature.due_date
+        json.status feature.status
+    end   
 end
+
 json.notes @project.notes do |note|
     json.id note.id
     json.content note.content

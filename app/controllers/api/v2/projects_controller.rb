@@ -10,6 +10,9 @@ class Api::V2::ProjectsController < ApplicationController
   # GET /projects/1
   def show
     # render json: {status: :ok, message: @project}
+    @low = @project.features.where(priority: :low)
+    @medium = @project.features.where(priority: :medium)
+    @high = @project.features.where(priority: :high)
   end
 
   # POST /projects

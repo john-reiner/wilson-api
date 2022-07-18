@@ -1,4 +1,12 @@
+json.counts do 
+    json.all @lists.count
+    json.completed @completed.count
+    json.ready @ready.count
+    json.working @working.count
+    json.pending @pending.count
+end
 json.all @lists.each do |list|
+
     json.id list.id
     json.title list.title
     json.status list.status
