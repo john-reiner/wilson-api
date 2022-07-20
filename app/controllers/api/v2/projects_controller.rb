@@ -1,6 +1,6 @@
 class Api::V2::ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :update, :destroy, :create_todo_default_list]
-  before_action :authenticate_user, only: [:index, :create]
+  before_action :authenticate_user, only: [:index, :create, :images]
 
   # GET /projects
   def index
@@ -9,7 +9,7 @@ class Api::V2::ProjectsController < ApplicationController
 
   # GET /projects/1
   def show
-    # render json: {status: :ok, message: @project}
+    @all_features = @project.features
     @low = @project.features.where(priority: :low)
     @medium = @project.features.where(priority: :medium)
     @high = @project.features.where(priority: :high)
@@ -22,7 +22,6 @@ class Api::V2::ProjectsController < ApplicationController
     @project.user = @user
     
     if @project.save
-      # byebug
       @project.lists.create(
         title: "Project - #{@project.title}: To Do's",
         user: @user
@@ -31,6 +30,18 @@ class Api::V2::ProjectsController < ApplicationController
     else
       render json: {errors: @project.errors, status: :unprocessable_entity}
     end
+  end
+
+  def images
+    search = params[:search]
+    pics = Unsplash::Photo.search(search)
+    returned_pics = []
+    # byebug
+    pics.each do |pic|
+      path = pic.urls.small
+      returned_pics.push(path)
+    end
+    render json: {pics: returned_pics}
   end
 
   # PATCH/PUT /projects/1

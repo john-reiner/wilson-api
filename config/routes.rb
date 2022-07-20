@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     end
     namespace :v2 do 
 
+      post '/images', to: 'projects#images'
       resources :users
       get '/user', to: 'users#user'
       resources :projects do
