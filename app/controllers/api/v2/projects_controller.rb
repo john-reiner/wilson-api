@@ -26,7 +26,7 @@ class Api::V2::ProjectsController < ApplicationController
         title: "Project - #{@project.title}: To Do's",
         user: @user
       )
-      render json: {status: :ok, project: @project}
+      render json: {status: :created}
     else
       render json: {errors: @project.errors, status: :unprocessable_entity}
     end
@@ -38,8 +38,14 @@ class Api::V2::ProjectsController < ApplicationController
     returned_pics = []
     # byebug
     pics.each do |pic|
-      path = pic.urls.small
-      returned_pics.push(path)
+      pic_hash = {
+        alt: pic.alt_description,
+        small_path: pic.urls.small,
+        thumb_path: pic.urls.thumb,
+        photographer_username: pic.user.username,
+        photographer_user_path: pic.user.links.html        
+      }
+      returned_pics.push(pic_hash)
     end
     render json: {pics: returned_pics}
   end
@@ -47,7 +53,10 @@ class Api::V2::ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   def update
     if @project.update(project_params)
-      render json: @project
+      @all_features = @project.features
+      @low = @project.features.where(priority: :low)
+      @medium = @project.features.where(priority: :medium)
+      @high = @project.features.where(priority: :high)
     else
       render json: @project.errors, status: :unprocessable_entity
     end

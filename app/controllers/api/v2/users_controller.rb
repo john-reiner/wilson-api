@@ -7,6 +7,7 @@ module Api
         
             def create
                 user = User.create(user_params)
+                # byebug
                 if user.errors.any?
                     render json: {errors: user.errors}
                 else

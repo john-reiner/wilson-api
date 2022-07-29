@@ -19,11 +19,11 @@ Rails.application.routes.draw do
         resources :lists, module: :projects do 
           resources :tasks
         end
-      end
-      resources :features do
-        resources :notes, module: :features
-        resources :lists, module: :features do 
-          resources :tasks
+        resources :features do
+          resources :notes, module: :features
+          resources :lists, module: :features do 
+            resources :tasks
+          end
         end
       end
     end    

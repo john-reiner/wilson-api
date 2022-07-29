@@ -5,7 +5,7 @@ json.counts do
     json.working @working.count
     json.pending @pending.count
 end
-json.all @lists.each do |list|
+json.all @incomplete.each do |list|
 
     json.id list.id
     json.title list.title

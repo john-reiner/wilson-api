@@ -6,4 +6,5 @@ class User < ApplicationRecord
     has_many :lists
     validates :email, presence: true
     validates :password, presence: true, length: { minimum: 8 }
+    validates :email, uniqueness: true
 end
