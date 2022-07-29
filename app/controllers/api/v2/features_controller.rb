@@ -6,19 +6,21 @@ class Api::V2::FeaturesController < ApplicationController
   # GET /features
   def index
     @features = Project.find(params[:project_id]).features
-    # render json: {status: :ok, high: @features.where(priority: :high)}
   end
 
   # GET /features/1
   def show
-    render json: @feature
+    render status: :ok
   end
 
   # POST /features
   def create
+
     @feature = Feature.new(feature_params)
+    @feature.project_id = params[:project_id]
+
     if @feature.save
-      render json: {message: @feature, status: :created}
+      render status: :created
     else
       render json: @feature.errors, status: :unprocessable_entity
     end
@@ -27,7 +29,7 @@ class Api::V2::FeaturesController < ApplicationController
   # PATCH/PUT /features/1
   def update
     if @feature.update(feature_params)
-      render json: {status: :ok}
+      render status: :ok
     else
       render json: @feature.errors, status: :unprocessable_entity
     end
@@ -36,7 +38,6 @@ class Api::V2::FeaturesController < ApplicationController
   # DELETE /features/1
   def destroy
     @feature.destroy
-    render json: {status: :ok}
   end
 
   private
