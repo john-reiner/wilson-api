@@ -1,11 +1,12 @@
 class Api::V2::FeaturesController < ApplicationController
+
   before_action :set_feature, only: [:show, :update, :destroy]
   before_action :authenticate_user, only: [:index, :create]
 
   # GET /features
   def index
-    @features = @user.features
-    render json: {status: :ok, high: @features.where(priority: :high)}
+    @features = Project.find(params[:project_id]).features
+    # render json: {status: :ok, high: @features.where(priority: :high)}
   end
 
   # GET /features/1
@@ -15,7 +16,6 @@ class Api::V2::FeaturesController < ApplicationController
 
   # POST /features
   def create
-    # byebug
     @feature = Feature.new(feature_params)
     if @feature.save
       render json: {message: @feature, status: :created}

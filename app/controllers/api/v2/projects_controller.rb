@@ -9,10 +9,11 @@ class Api::V2::ProjectsController < ApplicationController
 
   # GET /projects/1
   def show
-    @all_features = @project.features
-    @low = @project.features.where(priority: :low)
-    @medium = @project.features.where(priority: :medium)
-    @high = @project.features.where(priority: :high)
+    render status: :ok
+    # @all_features = @project.features
+    # @low = @project.features.where(priority: :low)
+    # @medium = @project.features.where(priority: :medium)
+    # @high = @project.features.where(priority: :high)
   end
 
   # POST /projects
@@ -22,11 +23,14 @@ class Api::V2::ProjectsController < ApplicationController
     @project.user = @user
     
     if @project.save
+
       @project.lists.create(
         title: "Project - #{@project.title}: To Do's",
         user: @user
       )
-      render json: {status: :created}
+
+      render status: :created
+
     else
       render json: {errors: @project.errors, status: :unprocessable_entity}
     end
@@ -53,10 +57,11 @@ class Api::V2::ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   def update
     if @project.update(project_params)
-      @all_features = @project.features
-      @low = @project.features.where(priority: :low)
-      @medium = @project.features.where(priority: :medium)
-      @high = @project.features.where(priority: :high)
+      render status: :ok
+      # @all_features = @project.features
+      # @low = @project.features.where(priority: :low)
+      # @medium = @project.features.where(priority: :medium)
+      # @high = @project.features.where(priority: :high)
     else
       render json: @project.errors, status: :unprocessable_entity
     end
@@ -65,7 +70,7 @@ class Api::V2::ProjectsController < ApplicationController
   # DELETE /projects/1
   def destroy
     @project.destroy
-    render json: {message: @project, status: :ok}
+    render status: :ok
   end
 
 
