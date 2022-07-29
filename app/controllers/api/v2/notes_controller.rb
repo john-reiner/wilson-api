@@ -2,15 +2,12 @@ class Api::V2::NotesController < ApplicationController
     before_action :set_note, only: [:show, :update, :destroy]
     before_action :authenticate_user, only: [:index, :create]
 
-    # GET /notes
     def index
-        # byebug
         @notes = @notable.notes
     end
 
-    # GET /notes/1
     def show
-        render json: {status: :ok, message: @note}
+
     end
 
     # POST /notes
@@ -18,7 +15,7 @@ class Api::V2::NotesController < ApplicationController
         @note = @notable.notes.new note_params
         @note.user = @user
         if @note.save
-            render json: {status: :created, note: @note}
+            render status: :created
         else
             render json: {errors: @note.errors, status: :unprocessable_entity}
         end
@@ -28,7 +25,7 @@ class Api::V2::NotesController < ApplicationController
     def update
     
         if @note.update(note_params)
-            render json: {note: @note, status: :ok}
+            render status: :ok
         else
             render json: @note.errors, status: :unprocessable_entity
         end
@@ -37,7 +34,7 @@ class Api::V2::NotesController < ApplicationController
     # DELETE /notes/1
     def destroy
         @note.destroy
-        render json: {status: :ok}
+        render status: :ok
     end
 
 
