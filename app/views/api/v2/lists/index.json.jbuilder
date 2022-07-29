@@ -5,55 +5,23 @@ json.counts do
     json.working @working.count
     json.pending @pending.count
 end
-json.all @incomplete.each do |list|
 
-    json.id list.id
-    json.title list.title
-    json.status list.status
-    json.tasks list.tasks.each do |task|
-        json.id task.id
-        json.content task.content
-        json.completed task.completed
-    end
-end
-json.completed @completed.each do |list|
-    json.id list.id
-    json.title list.title
-    json.status list.status
-    json.tasks list.tasks.each do |task|
-        json.id task.id
-        json.content task.content
-        json.completed task.completed
-    end
-end
-json.ready @ready.each do |list|
-    json.id list.id
-    json.title list.title
-    json.status list.status
-    json.tasks list.tasks.each do |task|
-        json.id task.id
-        json.content task.content
-        json.completed task.completed
-    end
-end
-json.working @working.each do |list|
-    json.id list.id
-    json.title list.title
-    json.status list.status
-    json.tasks list.tasks.each do |task|
-        json.id task.id
-        json.content task.content
-        json.completed task.completed
-    end
-end
-json.pending @pending.each do |list|
-    json.id list.id
-    json.title list.title
-    json.status list.status
-    json.tasks list.tasks.each do |task|
-        json.id task.id
-        json.content task.content
-        json.completed task.completed
-    end
+json.all do 
+    json.array! @incomplete, partial: "list", as: :list
 end
 
+json.completed do 
+    json.array! @completed, partial: "list", as: :list
+end
+
+json.ready do 
+    json.array! @ready, partial: "list", as: :list
+end
+
+json.working do 
+    json.array! @working, partial: "list", as: :list
+end
+
+json.pending do 
+    json.array! @pending, partial: "list", as: :list
+end

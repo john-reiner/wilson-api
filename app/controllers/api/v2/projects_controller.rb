@@ -40,7 +40,6 @@ class Api::V2::ProjectsController < ApplicationController
     search = params[:search]
     pics = Unsplash::Photo.search(search)
     returned_pics = []
-    # byebug
     pics.each do |pic|
       pic_hash = {
         alt: pic.alt_description,
