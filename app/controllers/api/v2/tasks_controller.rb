@@ -6,14 +6,11 @@ class Api::V2::TasksController < ApplicationController
 
   # GET /tasks
   def index
-    # byebug
     @tasks = @list.tasks
-    # render json: {tasks: @tasks, status: :ok}
   end
 
   # GET /tasks/1
   def show
-    # render json: {task: @task, status: :ok}
   end
 
   # POST /tasks
@@ -25,7 +22,6 @@ class Api::V2::TasksController < ApplicationController
     set_status
     # byebug
     if @task.save
-      # render json: {task: @task, status: :created}
       render status: :created
     else
       render json: @task.errors, status: :unprocessable_entity
@@ -38,7 +34,6 @@ class Api::V2::TasksController < ApplicationController
       if @task.update(task_params)
         @list = @task.list
         set_status
-        # render json: {task: @task, status: :ok, list_status: @list.status}
       else
         render json: @task.errors, status: :unprocessable_entity
       end
@@ -48,7 +43,6 @@ class Api::V2::TasksController < ApplicationController
   # DELETE /tasks/1
   def destroy
       @task.destroy
-      # render json: {status: :ok}
   end
 
   private

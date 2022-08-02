@@ -6,6 +6,18 @@ class Api::V2::FeaturesController < ApplicationController
   # GET /features
   def index
     @features = Project.find(params[:project_id]).features
+    @priority_counts = {
+      high: @features.where(priority: "high").count,
+      medium: @features.where(priority: "medium").count,
+      low: @features.where(priority: "low").count,
+    }
+    @stauts_counts = {
+      created: @features.where(status: "created").count,
+      paused: @features.where(status: "paused").count,
+      working: @features.where(status: "working").count,
+      ready: @features.where(status: "ready").count,
+      completed: @features.where(status: "completed").count,
+    }
   end
 
   # GET /features/1
