@@ -8,3 +8,4 @@ json.created feature.created_at
 json.updated feature.updated_at
 json.status feature.status
 json.priority feature.priority
+json.author feature.user.first_name + feature.user.last_name

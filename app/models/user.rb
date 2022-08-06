@@ -2,6 +2,7 @@ class User < ApplicationRecord
     has_secure_password
     has_many :goals
     has_many :projects
+    has_many :features
     has_many :notes
     has_many :lists
     validates :email, presence: true

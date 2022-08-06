@@ -18,6 +18,7 @@ class Api::V2::FeaturesController < ApplicationController
       ready: @features.where(status: "ready").count,
       completed: @features.where(status: "completed").count,
     }
+    # byebug
   end
 
   # GET /features/1
@@ -30,7 +31,7 @@ class Api::V2::FeaturesController < ApplicationController
 
     @feature = Feature.new(feature_params)
     @feature.project_id = params[:project_id]
-
+    @feature.user_id = @user.id
     if @feature.save
       render status: :created
     else

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_16_221143) do
+ActiveRecord::Schema.define(version: 2022_08_04_203228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,9 @@ ActiveRecord::Schema.define(version: 2022_07_16_221143) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "status", default: 0
     t.integer "priority", default: 0
+    t.bigint "user_id", null: false
     t.index ["project_id"], name: "index_features_on_project_id"
+    t.index ["user_id"], name: "index_features_on_user_id"
   end
 
   create_table "lists", force: :cascade do |t|
@@ -47,6 +49,7 @@ ActiveRecord::Schema.define(version: 2022_07_16_221143) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
+    t.string "title"
     t.index ["notable_type", "notable_id"], name: "index_notes_on_notable_type_and_notable_id"
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
@@ -87,6 +90,7 @@ ActiveRecord::Schema.define(version: 2022_07_16_221143) do
   end
 
   add_foreign_key "features", "projects"
+  add_foreign_key "features", "users"
   add_foreign_key "lists", "users"
   add_foreign_key "notes", "users"
   add_foreign_key "projects", "users"

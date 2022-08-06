@@ -3,6 +3,6 @@ json.features do
 end
 
 json.counts do
-    json.priority @priority_counts
-    json.status @stauts_counts
+    json.priorities @priority_counts
+    json.statuses @stauts_counts
 end
