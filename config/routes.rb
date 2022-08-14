@@ -10,18 +10,19 @@ Rails.application.routes.draw do
       put "complete-goal/:id", to: 'goals#complete_goal'
     end
     namespace :v2 do 
-
       post '/images', to: 'projects#images'
       resources :users
       get '/user', to: 'users#user'
       resources :projects do
         resources :notes, module: :projects
+        get '/lists-search', to: "projects#lists_search"
         resources :lists, module: :projects do 
           resources :tasks
         end
         resources :features do
           resources :notes, module: :features
-          resources :lists, module: :features do 
+          get '/lists-search', to: "features#lists_search"
+          resources :lists, module: :features do
             resources :tasks
           end
         end

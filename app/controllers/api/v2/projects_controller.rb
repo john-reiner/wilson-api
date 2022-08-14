@@ -36,6 +36,23 @@ class Api::V2::ProjectsController < ApplicationController
     end
   end
 
+  def lists_search
+    project = Project.find(params[:project_id])
+    lists = project.lists
+    @lists = []
+    if params[:status]
+      terms = params[:status].split(",")
+      if terms.count > 0 
+        terms.each do |status|
+          @lists.concat(lists.where(status: status))
+        end
+      else
+        @lists = lists
+      end
+    end
+    render json: @lists.uniq
+end
+
   def images
     search = params[:search]
     pics = Unsplash::Photo.search(search)

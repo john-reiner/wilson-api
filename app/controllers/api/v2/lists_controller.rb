@@ -5,12 +5,23 @@ class Api::V2::ListsController < ApplicationController
     # GET /lists
     def index
         @lists = @listable.lists
-
-        @incomplete = @lists.where.not(status: :completed)
-        @completed = @lists.where(status: :completed)
-        @pending = @lists.where(status: :pending)
-        @working = @lists.where(status: :working)
-        @ready = @lists.where(status: :ready)
+        @counts = {
+            pending: @lists.where(status: :pending).count,
+            working: @lists.where(status: :working).count,
+            ready: @lists.where(status: :ready).count,
+            completed: @lists.where(status: :completed).count,
+        }
+        # @statuses = {
+        #     completed: @lists.where(status: :completed),
+        #     pending: @lists.where(status: :pending),
+        #     working: @lists.where(status: :working),
+        #     ready: @lists.where(status: :ready),
+        # }
+        # @all = {
+        #     all: @lists,
+        #     incomplete: @lists.where.not(status: :completed),
+        #     completed: @lists.where(status: :completed),
+        # }
     end
 
     # GET /lists/1
@@ -18,6 +29,8 @@ class Api::V2::ListsController < ApplicationController
         set_status
         render status: :ok
     end
+
+
 
     # POST /lists
     def create
