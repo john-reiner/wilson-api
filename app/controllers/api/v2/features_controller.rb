@@ -18,7 +18,6 @@ class Api::V2::FeaturesController < ApplicationController
       ready: @features.where(status: "ready").count,
       completed: @features.where(status: "completed").count,
     }
-    # byebug
   end
 
   # GET /features/1

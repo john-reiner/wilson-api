@@ -26,7 +26,9 @@ class Api::V2::ListsController < ApplicationController
 
     # GET /lists/1
     def show
+        @tasks = @list.tasks
         set_status
+
         render status: :ok
     end
 

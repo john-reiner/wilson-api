@@ -1,2 +1,1 @@
-json.lists @lists
-json.counts @counts
+json.array! @lists, partial: "list", as: :list

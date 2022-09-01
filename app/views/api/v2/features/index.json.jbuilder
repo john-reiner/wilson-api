@@ -1,8 +1,7 @@
-json.features do
-    json.array! @features, partial: "feature", as: :feature
-end
+json.array! @features, partial: "feature", as: :feature
 
-json.counts do
-    json.priorities @priority_counts
-    json.statuses @stauts_counts
-end
+
+# json.counts do
+#     json.priorities @priority_counts
+#     json.statuses @stauts_counts
+# end

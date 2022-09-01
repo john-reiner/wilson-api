@@ -103,6 +103,6 @@ end
 
     # Only allow a trusted parameter "white list" through.
     def project_params
-      params.require(:project).permit(:title, :description, :github_url, :public, :image)
+      params.require(:project).permit(:title, :description, :github_url, :public, :image, :color, :color_name)
     end
 end
